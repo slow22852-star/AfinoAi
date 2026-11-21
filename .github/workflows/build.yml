@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 permissions:
@@ -14,7 +13,11 @@ jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-22.04
-    timeout-minutes: 60
+    timeout-minutes: 90
+
+    env:
+      CC: gcc
+      CXX: g++
 
     steps:
       - name: Checkout repository
@@ -34,8 +37,9 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-
           sudo apt-get install -y \
+            gcc \
+            g++ \
             git \
             zip \
             unzip \
